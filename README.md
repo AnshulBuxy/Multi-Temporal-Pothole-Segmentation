@@ -59,9 +59,9 @@ The model was trained and evaluated on a dataset of 2000 road image sequences (w
 
 - **Multi-frame Sequences:** Using 2-frame and 3-frame sequences significantly improved segmentation accuracy compared to single-frame inputs.
 - **Consistent Predictions:** The model produces smoother and more consistent segmentation maps, effectively highlighting the regions affected by cracks and potholes.
-
-> ![Results Comparison]([Multi-Temporal-Pothole-Segmentation/Screenshot 2025-03-07 104408.png](https://github.com/AnshulBuxy/Multi-Temporal-Pothole-Segmentation/blob/main/Screenshot%202025-03-07%20104408.png))  
+> ![Results Comparison](https://github.com/AnshulBuxy/Multi-Temporal-Pothole-Segmentation/blob/main/Screenshot%202025-03-07%20104408.png)
 > *Figure: Visual comparison of segmentation outputs from 1-frame, 2-frame, and 3-frame sequences.*
+> | ![Image 1](https://github.com/AnshulBuxy/Multi-Temporal-Pothole-Segmentation/blob/main/Picture1.png) | ![Image 2](https://github.com/AnshulBuxy/Multi-Temporal-Pothole-Segmentation/blob/main/Picture1.png) |
 
 ---
 
