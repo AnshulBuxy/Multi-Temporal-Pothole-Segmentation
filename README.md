@@ -28,10 +28,7 @@ The proposed ConvLSTM architecture outperforms traditional segmentation methods 
 
 - **Spatiotemporal Learning:** Unlike single-frame CNNs, the model integrates temporal information from multiple frames, leading to a better understanding of damage progression.
 - **Enhanced Robustness:** The temporal fusion makes the model less sensitive to issues like motion blur and changing perspectives.
-- **Improved Accuracy:** By leveraging the temporal context, the model achieves higher Intersection over Union (IoU) scores, resulting in more reliable segmentation.
-
-> ![Comparison Diagram](./images/comparison_architecture.png)  
-> *Figure: A schematic comparison between traditional CNN segmentation and the ConvLSTM-based approach.*
+- **Improved Accuracy:** By leveraging the temporal context, the model achieves higher Intersection over Union (IoU) scores, resulting in more reliable segmentation
 
 ---
 
@@ -48,7 +45,7 @@ The model is designed with three main components:
 3. **CNN Decoder:**  
    Converts the fused spatiotemporal features back into segmentation maps. It classifies each pixel into one of the target categories (crack, pothole, or normal surface).
 
-> ![Model Architecture](./images/model_architecture.png)  
+> ![Model Architecture](https://github.com/AnshulBuxy/Multi-Temporal-Pothole-Segmentation/blob/main/Picture3.png)
 > *Figure: Diagram of the ConvLSTM-based spatiotemporal segmentation model.*
 
 ---
@@ -61,7 +58,16 @@ The model was trained and evaluated on a dataset of 2000 road image sequences (w
 - **Consistent Predictions:** The model produces smoother and more consistent segmentation maps, effectively highlighting the regions affected by cracks and potholes.
 > ![Results Comparison](https://github.com/AnshulBuxy/Multi-Temporal-Pothole-Segmentation/blob/main/Screenshot%202025-03-07%20104408.png)
 > *Figure: Visual comparison of segmentation outputs from 1-frame, 2-frame, and 3-frame sequences.*
-> | ![Image 1](https://github.com/AnshulBuxy/Multi-Temporal-Pothole-Segmentation/blob/main/Picture1.png) | ![Image 2](https://github.com/AnshulBuxy/Multi-Temporal-Pothole-Segmentation/blob/main/Picture1.png) |
+### IOU vs Frame Table
+
+The table below summarizes the IOU (%) values for different frame inputs, as shown in the chart:
+
+| Frame | IOU (%) |
+|:----:|:-------:|
+|   1   |  68.4   |
+|   2   |  71.0   |
+|   3   |  74.5   |
+
 
 ---
 
