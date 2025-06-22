@@ -5,8 +5,7 @@ import sys
 from natsort import natsorted
 import numpy as np
 import torch
-from torch import nn
-from torch.autograd import Variable
+from torch import nn                                       
 from torchvision import datasets, transforms
 from torchvision.utils import save_image
 from lib import Pre_dataset
@@ -87,20 +86,7 @@ def one_hot_to_rgb(one_hot_predictions):
 # has all image shape,[data,label]
 datat_ = Pre_dataset(opt, opt.trainset, extension=opt.img_extension, transforms=transform)  # b,label?
 train_loader = DataLoader(datat_, batch_size=opt.batch_size, shuffle=True)  # if shuffle
-# for i, (data, labels) in enumerate(train_loader):
-#     ground_truth_rgb_reshaped = labels.permute(0, 1, 3, 4, 2)
-#     print(ground_truth_rgb_reshaped.shape)
-#     print(ground_truth_rgb_reshaped[0][0])
-#     ground_truth_classes = rgb_to_class_indices(ground_truth_rgb_reshaped)
-#     num_classes = len(RGB_TO_CLASS)
-#     labels = one_hot_encode(ground_truth_classes, num_classes)
-#     labels=torch.from_numpy(labels)
-#     #labels=labels.permute(0,1,4,2,3)
-#     print(labels.shape)
-#     print(labels[0][0])
-#     non_zero_indices = torch.nonzero(labels[0][0][0])
-#     non_zero_values = labels[0][0][0][non_zero_indices[:, 0], non_zero_indices[:, 1]]
-#     print(non_zero_values)
+
 for i, (data, labels) in enumerate(train_loader):
     print(f"Batch {i + 1}")
     print(f"Data shape: {data.shape}")
@@ -110,31 +96,7 @@ for i, (data, labels) in enumerate(train_loader):
 # has all image shape,[data,label]
 datatest_ = Pre_dataset(opt, opt.valset, extension=opt.img_extension, transforms=transform)  # b,label?,T
 test_loader = DataLoader(datatest_, batch_size=1, shuffle=False)  # if shu
-# for data, labels in train_loader:
-#   print(labels.shape)
-#   label=labels.permute(0, 1, 3, 4, 2)
-#   print(f"after rezing{label.shape}")
-#   print(labels[0][0][0])
-#   print(label[0][0])
-#   non_zero_indices = torch.nonzero(labels[0][0])
-#   t=torch.nonzero(label[0][0])
-#   print(f"normal{non_zero_indices}")
-#   print(f"permute{non_zero_indices}")
 
-# Step 2: Extract non-zero values using the indices
-  # non_zero_values = labels[0][0][0][non_zero_indices[:, 0], non_zero_indices[:, 1]]
-  # print(non_zero_values)
-  # break;
-
-
-# for i, (data, labels) in enumerate(test_loader):
-#   y = labels.reshape(-1,opt.n_channels,opt.image_size[0], opt.image_size[1])
-
-#   tests = y[:opt.n_test].reshape(-1, opt.n_channels, opt.image_size[0], opt.image_size[1])                
-#   os.makedirs(opt.log_folder, exist_ok=True)
-#   for itr in range(opt.n_test):
-#                     save_image((tests[itr] / 2 + 0.5), os.path.join(opt.log_folder, "real_itr{}_no{}.png".format(55, i)))
-#                     print("image_saved")
 if opt.cuda:
     autoencoder.cuda()
 
@@ -156,32 +118,15 @@ for itr in range(opt.num_epochs):
     autoencoder.train()
     
     i=0
-   
-    with torch.profiler.profile(
-        activities=[torch.profiler.ProfilerActivity.CPU, torch.profiler.ProfilerActivity.CUDA],
-        schedule=torch.profiler.schedule(wait=1, warmup=1, active=3),
-        on_trace_ready=torch.profiler.tensorboard_trace_handler('/home/jatinsahu/jatin/tempdata/btp_file/log')
-    ) as profiler:
-      start_batch_time = time.time()
-      for data, ydata in train_loader:
+  
+    start_batch_time = time.time()
+    for data, ydata in train_loader:
           
           if data.size(0) != opt.batch_size:
               break
   
           x = data.reshape(-1,opt.T, opt.n_channels, opt.image_size[0], opt.image_size[1])
-          y = ydata.reshape(-1,opt.n_channels,opt.image_size[0], opt.image_size[1])
-          #yper=y.permute(0,2,3,1)
-         
-          #shape=2,544,960,3
-          #ground_truth_classes = rgb_to_class_indices(yper)
-          #print(ground_truth_classes)
-          #num_classes = len(RGB_TO_CLASS)
-          #labels = one_hot_encode(ground_truth_classes, num_classes)
-  
-          #labels=torch.from_numpy(labels)
-          
-          #y=labels.permute(0,3,1,2)
-          #print("complete preprocessing . . .")    
+          y = ydata.reshape(-1,opt.n_channels,opt.image_size[0], opt.image_size[1])  
           if opt.cuda:
               x = Variable(x).cuda()
               y = Variable(y).cuda()
